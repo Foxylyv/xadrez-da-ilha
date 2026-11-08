@@ -1,0 +1,179 @@
+/* Paleta tirada do exe1.kra */
+:root {
+  --linha: #1d1a17;
+  --creme: #f2f1e1;
+  --amarelo: #ece39a;
+  --moldura: #d4c07d;
+  --moldura-esc: #b49c55;
+  --papel: #fff8e6;
+  --verde: #22b14c;
+  --verde-esc: #178a39;
+  --laranja: #f39a33;
+  --azul-chapeu: #3f55d8;
+  --rosa: #ef9fe4;
+  --mar: #3e9fd2;
+  --texto: #2a2520;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body {
+  background: linear-gradient(#a6dcef, #46a4d6);
+  font-family: 'Patrick Hand', 'Comic Sans MS', 'Segoe Print', cursive;
+  color: var(--texto);
+  user-select: none;
+  -webkit-user-select: none;
+}
+button, select, input { font-family: inherit; }
+
+/* palco fixo 1920x1080 escalado para caber na janela */
+#palco {
+  position: absolute; left: 50%; top: 50%;
+  width: 1920px; height: 1080px;
+  transform-origin: 0 0;
+  overflow: hidden;
+}
+#fundo { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+
+/* ---------- painel da raposa ---------- */
+#painel {
+  position: absolute; left: 24px; top: 20px; width: 450px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+#painel h1 {
+  margin: 0; font-size: 46px; line-height: 1; font-weight: normal;
+  color: var(--papel);
+  -webkit-text-stroke: 7px var(--linha); paint-order: stroke fill;
+  letter-spacing: 1px;
+}
+#painel h1 span { color: #ffd76a; }
+#fala {
+  position: relative; background: var(--papel);
+  border: 3px solid var(--linha); border-radius: 26px 30px 24px 28px;
+  padding: 12px 18px; min-height: 92px;
+  box-shadow: 4px 5px 0 rgba(29, 26, 23, .18);
+}
+#fala::after { /* rabinho apontando para a raposa na varanda */
+  content: ''; position: absolute; right: -26px; top: 18px;
+  width: 30px; height: 26px; background: var(--papel);
+  border: 3px solid var(--linha); border-left: none; border-bottom: none;
+  transform: skewY(-28deg); border-radius: 0 12px 0 0;
+}
+#fala-texto { margin: 0; font-size: 25px; line-height: 1.18; }
+#fala-texto b { color: #c0398a; font-weight: normal; }
+#placar {
+  background: rgba(255, 248, 230, .92); border: 3px solid var(--linha); border-radius: 18px;
+  padding: 6px 14px; font-size: 21px; display: flex; flex-wrap: wrap; gap: 4px 16px;
+}
+#placar b { font-weight: normal; color: var(--verde-esc); }
+#botoes, #tutorial-botoes { display: flex; flex-wrap: wrap; gap: 8px; }
+#painel button, .janela button {
+  font-size: 22px; padding: 5px 14px; cursor: pointer;
+  background: var(--papel); color: var(--texto);
+  border: 3px solid var(--linha); border-radius: 14px;
+  box-shadow: 0 4px 0 var(--linha);
+  transition: transform .08s, box-shadow .08s, background .15s;
+}
+#painel button:hover, .janela button:hover { background: #fff2bf; }
+#painel button:active, .janela button:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--linha); }
+#painel button:disabled { opacity: .45; cursor: default; }
+#painel button.desligado { background: #ddd6c4; }
+#btn-tut-continuar { background: #bff0c6; }
+#lances {
+  margin: 0; padding: 6px 12px 6px 44px; max-height: 128px; overflow-y: auto;
+  background: rgba(255, 248, 230, .82); border: 2px solid rgba(29, 26, 23, .5); border-radius: 14px;
+  font-size: 19px; columns: 2; column-gap: 18px;
+}
+#lances:empty { display: none; }
+#lances li::marker { color: #8a7a5a; }
+
+/* ---------- barras dos jogadores ---------- */
+.barra {
+  position: absolute; left: 990px; width: 850px; height: 64px;
+  display: flex; align-items: center; gap: 18px; padding: 0 18px;
+  background: rgba(255, 248, 230, .88); border: 3px solid var(--linha); border-radius: 20px;
+  font-size: 26px;
+}
+#barra-topo { top: 30px; }
+#barra-base { top: 984px; }
+.barra .quem { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.barra .quem svg { width: 50px; height: 50px; }
+.barra .vez { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: transparent; border: 2px solid var(--linha); }
+.barra.ativa .vez { background: var(--verde); box-shadow: 0 0 0 4px rgba(34, 177, 76, .3); }
+.barra .capturas { display: flex; align-items: center; flex-wrap: nowrap; overflow: hidden; margin-left: auto; }
+.barra .capturas svg { width: 36px; height: 36px; margin-left: -8px; }
+.barra .capturas em { font-style: normal; margin-left: 8px; color: var(--verde-esc); }
+
+/* ---------- tabuleiro ---------- */
+#moldura {
+  position: absolute; left: 990px; top: 110px; width: 850px; height: 850px;
+  background: var(--moldura); border: 3px solid var(--linha);
+  box-shadow: 8px 10px 0 rgba(29, 26, 23, .18);
+}
+#tabuleiro { position: absolute; left: 22px; top: 22px; width: 800px; height: 800px; border: 2px solid var(--linha); background: var(--creme); touch-action: none; }
+#casas, #camada-pecas { position: absolute; inset: 0; }
+.casa { position: absolute; width: 100px; height: 100px; }
+.casa.clara { background: var(--creme); }
+.casa.escura { background: var(--amarelo); box-shadow: inset 0 0 0 1.5px rgba(29, 26, 23, .55); }
+.casa.ultimo::before { content: ''; position: absolute; inset: 0; background: rgba(239, 159, 228, .38); }
+.casa.sel::before { content: ''; position: absolute; inset: 0; background: rgba(34, 177, 76, .32); box-shadow: inset 0 0 0 4px rgba(23, 138, 57, .75); }
+.casa.dica::before { content: ''; position: absolute; inset: 0; background: rgba(63, 85, 216, .25); box-shadow: inset 0 0 0 4px rgba(63, 85, 216, .7); }
+.casa.alvo::after {
+  content: ''; position: absolute; left: 36px; top: 36px; width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(29, 26, 23, .28); z-index: 1;
+}
+.casa.alvo.cap::after { left: 6px; top: 6px; width: 88px; height: 88px; background: transparent; border: 6px solid rgba(29, 26, 23, .3); }
+.casa.xeque { background: radial-gradient(circle, #ff6b6b 0%, rgba(255, 107, 107, .55) 40%, transparent 72%), var(--amarelo); }
+.casa.clara.xeque { background: radial-gradient(circle, #ff6b6b 0%, rgba(255, 107, 107, .55) 40%, transparent 72%), var(--creme); }
+.estrela { position: absolute; left: 18px; top: 18px; width: 64px; height: 64px; animation: pula 1.1s ease-in-out infinite; z-index: 2; pointer-events: none; }
+@keyframes pula { 50% { transform: translateY(-7px) rotate(8deg); } }
+
+.peca {
+  position: absolute; left: 0; top: 0; width: 100px; height: 100px;
+  transition: transform .24s cubic-bezier(.3, .7, .3, 1), opacity .25s;
+  z-index: 3; pointer-events: none;
+}
+.peca svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 4px 0 rgba(29, 26, 23, .15)); }
+.peca.arrastando { transition: none; z-index: 10; }
+.peca.arrastando svg { transform: scale(1.12); filter: drop-shadow(0 12px 6px rgba(29, 26, 23, .3)); }
+.peca.saindo { opacity: 0; }
+.peca.nova svg { animation: surge .35s ease-out; }
+@keyframes surge { from { transform: scale(.4); } }
+
+#coords { position: absolute; inset: 0; pointer-events: none; font-size: 19px; color: #5b4a1e; }
+#coords span { position: absolute; width: 22px; text-align: center; line-height: 22px; }
+
+/* ---------- janelas ---------- */
+#veu { position: absolute; inset: 0; background: rgba(20, 40, 70, .35); display: flex; align-items: center; justify-content: center; z-index: 50; }
+#veu[hidden] { display: none; }
+.janela {
+  position: relative; width: 760px; max-height: 1000px; overflow-y: auto;
+  background: var(--papel); border: 4px solid var(--linha); border-radius: 34px 40px 30px 38px;
+  padding: 28px 38px 30px; box-shadow: 10px 12px 0 rgba(29, 26, 23, .25);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.janela[hidden] { display: none; }
+.janela h2 { margin: 0; font-size: 54px; font-weight: normal; line-height: 1.05; text-align: center; }
+.janela .sub { margin: -6px 0 6px; text-align: center; font-size: 26px; color: #6d5f48; }
+.janela button.grande { font-size: 30px; padding: 10px 20px; text-align: left; border-radius: 18px; }
+.janela button.grande small { display: block; font-size: 21px; color: #6d5f48; line-height: 1.1; }
+.janela button.destaque { background: #c9f2cf; }
+.janela button.destaque:hover { background: #b2ebba; }
+.janela .linha { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; font-size: 24px; }
+.janela .linha button.grande { flex: 1; text-align: center; white-space: nowrap; }
+#cfg-ia { padding: 0 8px; justify-content: space-between; }
+#cfg-ia select { font-size: 22px; border: 2px solid var(--linha); border-radius: 10px; background: #fff; padding: 2px 6px; }
+#cfg-ia input[type=range] { width: 200px; vertical-align: middle; accent-color: var(--verde); }
+.opcao { font-size: 22px; margin: -4px 0 4px 10px; display: flex; gap: 8px; align-items: center; color: #4d4232; }
+.opcao input { width: 22px; height: 22px; accent-color: var(--verde); }
+#fim-titulo { font-size: 64px; }
+#fim-motivo { text-align: center; font-size: 30px; margin: 0; }
+#fim-placar { text-align: center; font-size: 26px; color: #4d4232; }
+#lista-licoes { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+#lista-licoes button { width: 100%; text-align: left; font-size: 24px; display: flex; align-items: center; gap: 8px; }
+#lista-licoes button svg { width: 42px; height: 42px; flex: none; }
+#lista-licoes button.feita { background: #d6f5da; }
+#promo-opcoes { display: flex; gap: 14px; justify-content: center; }
+#promo-opcoes button { width: 150px; height: 170px; padding: 6px; display: flex; flex-direction: column; align-items: center; font-size: 20px; }
+#promo-opcoes svg { width: 120px; height: 120px; }
+#janela-promo { width: 760px; }

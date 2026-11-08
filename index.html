@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xadrez da Ilha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<div id="palco">
+  <img id="fundo" src="arte/cenario.jpg" alt="">
+
+  <!-- painel da raposa (canto superior esquerdo) -->
+  <section id="painel">
+    <h1>Xadrez <span>da Ilha</span></h1>
+    <div id="fala"><p id="fala-texto">Olá! Eu sou a Raposa Maga.</p></div>
+    <div id="placar" hidden></div>
+    <div id="botoes">
+      <button data-acao="menu">☰ Menu</button>
+      <button data-acao="desfazer">↶ Desfazer</button>
+      <button data-acao="dica">✦ Dica</button>
+      <button data-acao="virar">⇅ Virar</button>
+      <button data-acao="som" id="btn-som">♪ Som</button>
+    </div>
+    <div id="tutorial-botoes" hidden>
+      <button data-acao="tut-continuar" id="btn-tut-continuar">Continuar ➜</button>
+      <button data-acao="tut-recomecar">↺ Recomeçar</button>
+      <button data-acao="tut-sair">Lições</button>
+    </div>
+    <ol id="lances"></ol>
+  </section>
+
+  <!-- barras dos jogadores -->
+  <div class="barra" id="barra-topo"><span class="quem"></span><span class="capturas"></span></div>
+  <div class="barra" id="barra-base"><span class="quem"></span><span class="capturas"></span></div>
+
+  <!-- tabuleiro -->
+  <div id="moldura">
+    <div id="tabuleiro">
+      <div id="casas"></div>
+      <div id="camada-pecas"></div>
+    </div>
+    <div id="coords"></div>
+  </div>
+
+  <!-- janelas -->
+  <div id="veu" hidden>
+    <div class="janela" id="janela-menu" hidden>
+      <h2>Xadrez da Ilha da Baleia</h2>
+      <p class="sub">Floresta 🌲 contra Mar 🌊</p>
+      <button class="grande" data-acao="continuar" id="btn-continuar" hidden>▶ Continuar partida</button>
+      <button class="grande destaque" data-acao="infinito">∞ Partidas infinitas
+        <small>Uma partida atrás da outra. Ganhou, a IA fica mais forte; perdeu, ela pega leve.</small></button>
+      <label class="opcao"><input type="checkbox" id="opt-surpresa"> Abertura surpresa às vezes (peças de trás embaralhadas, sem roque)</label>
+      <button class="grande" data-acao="ia">🤖 Partida contra a IA
+        <small>Escolha o nível e a cor.</small></button>
+      <div class="linha" id="cfg-ia">
+        <label>Nível <input type="range" id="opt-nivel" min="1" max="10" value="3"> <b id="nivel-nome"></b></label>
+        <label>Cor <select id="opt-cor"><option value="w">Floresta (brancas)</option><option value="b">Mar (pretas)</option><option value="?">Sorteio</option></select></label>
+      </div>
+      <button class="grande" data-acao="dois">👥 Dois jogadores
+        <small>Na mesma tela, um de cada vez.</small></button>
+      <button class="grande" data-acao="licoes">📖 Tutorial
+        <small>Aprenda cada peça com a Raposa Maga.</small></button>
+    </div>
+
+    <div class="janela" id="janela-licoes" hidden>
+      <h2>Tutorial</h2>
+      <p class="sub">Clique numa lição. As concluídas ganham ✓.</p>
+      <ol id="lista-licoes"></ol>
+      <button data-acao="menu">← Voltar</button>
+    </div>
+
+    <div class="janela" id="janela-fim" hidden>
+      <h2 id="fim-titulo"></h2>
+      <p id="fim-motivo"></p>
+      <div id="fim-placar"></div>
+      <div class="linha">
+        <button class="grande destaque" data-acao="proxima" id="btn-proxima">Próxima partida</button>
+        <button class="grande" data-acao="ver-tabuleiro">Ver tabuleiro</button>
+        <button class="grande" data-acao="menu">Menu</button>
+      </div>
+    </div>
+
+    <div class="janela" id="janela-promo" hidden>
+      <h2>Promoção!</h2>
+      <p class="sub">O passarinho chegou do outro lado. Vira o quê?</p>
+      <div id="promo-opcoes"></div>
+    </div>
+  </div>
+</div>
+
+<script src="js/regras.js"></script>
+<script src="js/ia.js"></script>
+<script src="js/pecas.js"></script>
+<script src="js/tutorial.js"></script>
+<script src="js/jogo.js"></script>
+</body>
+</html>
