@@ -83,4 +83,4 @@ node testes/tutorial_teste.js  # tutorial
 
 ## Créditos
 
-Ilustração, conceito e peças: **Lívia Souza** ([@Foxylyv](https://github.com/Foxylyv)). A arte não pode ser reutilizada sem autorização.
+Ilustração, conceito e peças: **Lívia Souza** ([@Foxylyv](https://github.com/Foxylyv)). 
